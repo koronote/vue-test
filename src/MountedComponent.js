@@ -29,6 +29,8 @@ Object.defineProperty(MountedComponent.prototype, 'length', {
  * @private
  */
 MountedComponent.prototype._init = function initMountedComponent(TestComponent, props = {}, slot = '') {
+  this._elementsCache = null;
+  
   // Necessary hack to support Vue 1.x: for 2.x, we could just use v-bind
   // https://github.com/vuejs/vue/issues/2114
   const propsString = Object.keys(props)
@@ -55,6 +57,7 @@ MountedComponent.prototype._newFromThis = function newFromThis(el) {
   const elMount = new MountedComponent();
   elMount._vm = this._vm;
   elMount._el = Array.isArray(el) ? el : [el];
+  elMount._elementsCache = null;
 
   return elMount;
 };
